@@ -46,12 +46,12 @@ router.put("/forgot-pw/", (req, res, next) => {
     res.send("PUT forgot-pw");
 });
 
-/* GET reset-pwd page. /reset-pw */
+/* GET reset-pwd page. /reset-pw/:token */
 router.get("/reset-pw/:token", (req, res, next) => {
     res.send(" reset-pw  with a token route");
 });
 
-/* PUT reset-pwd page. /reset-pw */
+/* PUT reset-pwd page. /reset-pw/:token */
 router.put("/reset-pw/:token", (req, res, next) => {
     res.send(" reset-pw  with a token route");
 });
