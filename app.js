@@ -4,7 +4,22 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const User = require("./models/user");
+const session = require("express-session");
+const mongoose = require("mongoose");
 
+// conectin
+mongoose
+    .connect("mongodb://localhost:27017/surf-shop", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("Connected to DB"))
+    .catch((err) => console.log(err));
+
+// requering routes
 const indexRouter = require("./routes/index");
 const postsRouter = require("./routes/posts");
 const reviewsRouter = require("./routes/reviews");
@@ -21,6 +36,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(
+    session({
+        secret: "keyboard quearling",
+        resave: false,
+        saveUninitialized: true,
+    })
+);
+
+//config Passport and Sessions
+// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// mount routes
 app.use("/", indexRouter);
 app.use("/posts", postsRouter);
 app.use("/posts/:id/reviews", reviewsRouter);
