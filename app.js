@@ -43,6 +43,8 @@ app.use(
         saveUninitialized: true,
     })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
 //config Passport and Sessions
 // CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
