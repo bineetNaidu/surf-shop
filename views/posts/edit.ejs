@@ -3,7 +3,7 @@
     <div>
         <input
             type="text"
-            name="title"
+            name="post[title]"
             placeholder="Title"
             value="<%=post.title%>"
         />
@@ -11,20 +11,20 @@
     <div>
         <input
             type="text"
-            name="price"
+            name="post[price]"
             placeholder="Price"
             value="<%=post.price%>"
         />
     </div>
     <div>
-        <textarea name="description" placeholder="Description">
+        <textarea name="post[description]" placeholder="Description">
 <%=post.description%></textarea
         >
     </div>
     <div>
         <input
             type="text"
-            name="location"
+            name="post[location]"
             placeholder="Location"
             value="<%=post.location%>"
         />
