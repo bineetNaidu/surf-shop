@@ -15,4 +15,9 @@ module.exports = {
         let createPost = await Post.create(req.body);
         res.redirect(`/posts/${createPost.id}`);
     },
+    // show POSTS
+    async showPost(req, res, next) {
+        let foundPost = await Post.findById(req.params.id);
+        res.render("posts/show", { post: foundPost });
+    },
 };
