@@ -5,3 +5,8 @@
 <div>Description : <%= post.description %></div>
 <div>Location : <%= post.location %></div>
 <div><a href="/posts/<%= post.id %>/edit">Edit!</a></div>
+<div>
+    <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+        <button>DELETE POST</button>
+    </form>
+</div>
