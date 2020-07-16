@@ -1,28 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const {
-    getPosts,
-    newPost,
-    createPost,
-    showPost,
-    editPost,
+    postIndex,
+    postNew,
+    postCreate,
+    postShow,
+    postEdit,
 } = require("../controllers/posts");
-const { errorHandler } = require("../middleware");
+const { asyncErrorHandler } = require("../middleware");
 
 /* GET post index /posts */
-router.get("/", errorHandler(getPosts));
+router.get("/", asyncErrorHandler(postIndex));
 
 /* GET post new /posts/new */
-router.get("/new", newPost);
+router.get("/new", postNew);
 
 /* POST post create /posts */
-router.post("/", errorHandler(createPost));
+router.post("/", asyncErrorHandler(postCreate));
 
 /* GET post show /post/:id */
-router.get("/:id", errorHandler(showPost));
+router.get("/:id", asyncErrorHandler(postShow));
 
 /* GET post edit /post/:id/edit */
-router.get("/:id/edit", errorHandler(editPost));
+router.get("/:id/edit", asyncErrorHandler(postEdit));
 
 /* PUT post update /post/:id */
 router.put("/:id", (req, res, next) => {
