@@ -9,6 +9,7 @@ const passportLocal = require("passport-local");
 const User = require("./models/user");
 const session = require("express-session");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 
 // conectin
 mongoose
@@ -35,6 +36,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(methodOverride("_method"));
 
 app.use(
     session({

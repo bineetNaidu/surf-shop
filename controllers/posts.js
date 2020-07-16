@@ -20,4 +20,9 @@ module.exports = {
         let foundPost = await Post.findById(req.params.id);
         res.render("posts/show", { post: foundPost });
     },
+    // POST edit
+    async editPost(req, res, next) {
+        let editPOST = await Post.findById(req.params.id);
+        res.render("posts/edit", { post: editPOST });
+    },
 };
