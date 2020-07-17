@@ -1,4 +1,10 @@
 const Post = require("../models/post");
+const cloudinary = require("cloudinary");
+cloudinary.config({
+    cloud_name: "bineet",
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+});
 
 module.exports = {
     // POST index
@@ -12,7 +18,15 @@ module.exports = {
     },
     // create post
     async postCreate(req, res, next) {
-        let createPost = await Post.create(req.body);
+        req.body.post.images = [];
+        for (const file of req.files) {
+            let image = await cloudinary.v2.uploader.upload(file.path);
+            req.body.post.images.push({
+                url: image.secure_url,
+                public_id: image.public_id,
+            });
+        }
+        let createPost = await Post.create(req.body.post);
         res.redirect(`/posts/${createPost.id}`);
     },
     // show POSTS
