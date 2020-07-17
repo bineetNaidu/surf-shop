@@ -4,6 +4,7 @@
     action="/posts/<%= post.id %>?_method=PUT"
     method="POST"
     id="postEditForm"
+    enctype="multipart/form-data"
 >
     <div>
         <input
@@ -35,7 +36,7 @@
             <label for="image<%= i %>">Delete?</label>
             <input
                 type="checkbox"
-                name="deleteImage"
+                name="deleteImages[]"
                 class="imageDeleteCheckbox"
                 id="image<%= i %>"
                 value="<%= image.public_id %>"
@@ -84,7 +85,7 @@
             let removalAmt = newTotal - 4;
             // alert user of their error
             alert(
-                `You need to remove at least ${removalAmt} image${
+                `You need to remove at least ${removalAmt} (more) image${
                     removalAmt === 1 ? "" : "s"
                 }!`
             );
