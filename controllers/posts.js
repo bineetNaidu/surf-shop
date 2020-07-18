@@ -1,4 +1,8 @@
 const Post = require("../models/post");
+const mbxGeocdoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const geocodingClient = mbxGeocdoding({
+    accessToken: process.env.MAPBOX_TOKEN,
+});
 const cloudinary = require("cloudinary");
 const post = require("../models/post");
 cloudinary.config({
@@ -27,6 +31,14 @@ module.exports = {
                 public_id: image.public_id,
             });
         }
+        let response = await geocodingClient
+            .forwardGeocode({
+                query: req.body.post.location,
+                limit: 1,
+            })
+            .send();
+        req.body.post.coordinates =
+            response.body.features[0].geometry.coordinates;
         let createPost = await Post.create(req.body.post);
         res.redirect(`/posts/${createPost.id}`);
     },

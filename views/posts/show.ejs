@@ -58,64 +58,34 @@
 </div>
 
 <script>
+    let post = <%- JSON.stringify(post) %>;
+
     mapboxgl.accessToken =
         "pk.eyJ1IjoiYmluZWV0bmFpZHUiLCJhIjoiY2tjcmRncHN4MG96eDMwbWdyajB1OGJkdiJ9.osACZLXZrpFZ1zSOX7IzHA";
 
     var map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/light-v10",
-        center: [-96, 37.8],
-        zoom: 3,
+        center: post.coordinates,
+        zoom: 5,
     });
 
-    // code from the next step will go here!
-    var geojson = {
-        type: "FeatureCollection",
-        features: [
-            {
-                type: "Feature",
-                geometry: {
-                    type: "Point",
-                    coordinates: [-77.032, 38.913],
-                },
-                properties: {
-                    title: "Mapbox",
-                    description: "Washington, D.C.",
-                },
-            },
-            {
-                type: "Feature",
-                geometry: {
-                    type: "Point",
-                    coordinates: [-122.414, 37.776],
-                },
-                properties: {
-                    title: "Mapbox",
-                    description: "San Francisco, California",
-                },
-            },
-        ],
-    };
-
-    // add markers to map
-    geojson.features.forEach(function (marker) {
-        // create a HTML element for each feature
+        // create a HTML element for post location/marker
         var el = document.createElement("div");
         el.className = "marker";
 
-        // make a marker for each feature and add to the map
+        // make a marker for  location and add to the map
         new mapboxgl.Marker(el)
-            .setLngLat(marker.geometry.coordinates)
+            .setLngLat(post.coordinates)
             .setPopup(
                 new mapboxgl.Popup({ offset: 25 }) // add popups
                     .setHTML(
                         "<h3>" +
-                            marker.properties.title +
+                            post.title +
                             "</h3><p>" +
-                            marker.properties.description +
+                            post.location +
                             "</p>"
                     )
             )
             .addTo(map);
-    });
 </script>
