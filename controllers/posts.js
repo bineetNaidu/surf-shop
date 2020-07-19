@@ -45,7 +45,12 @@ module.exports = {
     },
     // show POSTS
     async postShow(req, res, next) {
-        let foundPost = await Post.findById(req.params.id);
+        let foundPost = await Post.findById(req.params.id).populate({
+            path: "review",
+            options: {
+                sort: { _id: -1 },
+            },
+        });
         res.render("posts/show", { post: foundPost });
     },
     // POST edit
