@@ -21,7 +21,7 @@
     </form>
 </div>
 
-<h2>Create a review</h2>
+<h2>Create a Review</h2>
 <form action="/posts/<%= post.id %>/reviews" method="POST">
     <textarea name="review[body]" required></textarea>
     <input
@@ -32,12 +32,14 @@
         step="1"
         required
     />
-    <input type="submit" value="Submit" />
+
+    <input type="submit" />
 </form>
 
 <h3>Reviews</h3>
-<% post.reviews.forEach((review) => { %>
+<!-- display all reviews -->
+<% post.reviews.forEach(function(review) { %>
 <div>
-    <%= review.body %> rating: <%= review.rating %>
+    <%= review.body %> Rating: <%= review.rating %>
 </div>
-<% }) %>
+<% }); %>
