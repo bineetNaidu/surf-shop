@@ -59,6 +59,12 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+//title middleware
+app.use((req, res, next) => {
+    res.locals.title = "Surf Shop";
+    next();
+});
+
 // mount routes
 app.use("/", indexRouter);
 app.use("/posts", postsRouter);
