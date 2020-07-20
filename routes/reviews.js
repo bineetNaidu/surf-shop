@@ -11,9 +11,7 @@ const { asyncErrorHandler } = require("../middleware");
 router.post("/", asyncErrorHandler(reviewCreate));
 
 /* PUT review update posts/:id/review/:id */
-router.put("/:review_id", (req, res, next) => {
-    res.send("PUT review update posts/:id/review/:review_id");
-});
+router.put("/:review_id", asyncErrorHandler(reviewUpdate));
 
 /* DELETE review destroy /review/:id */
 router.delete("/review_:id", (req, res, next) => {

@@ -19,7 +19,11 @@ module.exports = {
     },
 
     // updating the REVEIW
-    async reviewUpdate(req, res, next) {},
+    async reviewUpdate(req, res, next) {
+        await Review.findByIdAndUpdate(req.params.review_id, req.body.review);
+        req.session.success = "Review Updated successfully!";
+        res.redirect("/posts/" + req.params.id);
+    },
     // destroy REVIEWS
     async reviewDestroy(req, res, next) {},
 };
