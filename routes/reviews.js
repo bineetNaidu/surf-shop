@@ -5,13 +5,13 @@ const {
     reviewUpdate,
     reviewDestroy,
 } = require("../controllers/reviews");
-const { asyncErrorHandler } = require("../middleware");
+const { asyncErrorHandler, isReviewAuthor } = require("../middleware");
 
 /* POST review create posts/:id/reviews */
 router.post("/", asyncErrorHandler(reviewCreate));
 
 /* PUT review update posts/:id/review/:id */
-router.put("/:review_id", asyncErrorHandler(reviewUpdate));
+router.put("/:review_id", isReviewAuthor, asyncErrorHandler(reviewUpdate));
 
 /* DELETE review destroy /review/:id */
 router.delete("/review_:id", (req, res, next) => {
