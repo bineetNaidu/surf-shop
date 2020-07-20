@@ -46,5 +46,36 @@
     <br />
     Rating: <%= review.rating %>
 </div>
+<div>
+    <button class="toggle-edit-form">Edit</button>
+    <form
+        action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT"
+        method="POST"
+        class="edit-review-form"
+    >
+        <textarea name="review[body]" required><%= review.body %></textarea>
+        <input
+            type="number"
+            name="review[rating]"
+            min="1"
+            max="5"
+            step="1"
+            value="<%= review.rating %>"
+            required
+        />
+        <input type="submit" value="Update" />
+    </form>
+</div>
 <hr />
 <% }); %>
+
+<script>
+    $(".toggle-edit-form").on("click", function () {
+        // toogle the idit btn text on click
+        $(this).text() === "Edit"
+            ? $(this).text("Cancel")
+            : $(this).text("Edit");
+        // toogle visiblity of edit form
+        $(this).siblings(".edit-review-form").toggle();
+    });
+</script>
