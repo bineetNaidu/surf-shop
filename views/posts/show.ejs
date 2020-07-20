@@ -68,14 +68,3 @@
 </div>
 <hr />
 <% }); %>
-
-<script>
-    $(".toggle-edit-form").on("click", function () {
-        // toogle the idit btn text on click
-        $(this).text() === "Edit"
-            ? $(this).text("Cancel")
-            : $(this).text("Edit");
-        // toogle visiblity of edit form
-        $(this).siblings(".edit-review-form").toggle();
-    });
-</script>
