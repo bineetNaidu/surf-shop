@@ -40,13 +40,11 @@
 <!-- display all reviews -->
 <% post.reviews.forEach(function(review) { %>
 <div>
-    <em><%= review.author.username %></em>
-    <br />
-    <%= review.body %>
-    <br />
+    Author: <%= review.author.username %><br />
+    <%= review.body %><br />
     Rating: <%= review.rating %>
 </div>
-<% if(review.author.equals(currentUser._id)){ %>
+<% if(review.author.equals(currentUser._id)) { %>
 <div>
     <button class="toggle-edit-form">Edit</button>
     <form
