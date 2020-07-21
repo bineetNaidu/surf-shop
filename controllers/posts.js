@@ -121,6 +121,7 @@ module.exports = {
             await cloudinary.v2.uploader.destroy(image.public_id);
         }
         await destroyPost.remove();
+        req.session.success = "Post deleted successfully!";
         res.redirect("/posts");
     },
 };
