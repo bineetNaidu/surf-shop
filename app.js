@@ -13,6 +13,7 @@ const User = require("./models/user");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+const seedPosts = require("./seeds");
 
 // conectin
 mongoose
@@ -78,6 +79,8 @@ app.use((req, res, next) => {
 
     next();
 });
+
+seedPosts();
 
 // mount routes
 app.use("/", indexRouter);
