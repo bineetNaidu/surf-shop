@@ -30,7 +30,7 @@ async function seedPosts() {
         }">${title}</a></strong><p>${
             post.location
         }</p><p>${description.substring(0, 20)}...</p>`;
-        post.save();
+        await post.save();
     }
     console.log("600 new posts created");
 }

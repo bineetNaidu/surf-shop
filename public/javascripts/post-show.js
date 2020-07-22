@@ -1,6 +1,3 @@
-mapboxgl.accessToken =
-    "pk.eyJ1IjoiYmluZWV0bmFpZHUiLCJhIjoiY2tjcmRncHN4MG96eDMwbWdyajB1OGJkdiJ9.osACZLXZrpFZ1zSOX7IzHA";
-
 var map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/light-v10",
