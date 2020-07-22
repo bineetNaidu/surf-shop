@@ -7,6 +7,16 @@
 <div>Description : <%= post.description %></div>
 <div>Location : <%= post.location %></div>
 <div>
+    Rate : <% for(let i = 0 ; i < 5; i++){ %> <% if(i < floorRating){ %>
+    <i class="fas fa-star"></i>
+    <% } else if((post.avgRating - i) > 0 && (post.avgRating - i) < 1) { %>
+    <i class="fas fa-star-half-alt"></i>
+    <% }else{ %>
+    <i class="far fa-star"></i>
+    <% } %> <% } %> <%= `${post.avgRating} star${post.avgRating === 1 ? '' :
+    's'}` %>
+</div>
+<div>
     <% post.images.forEach((image) => { %>
     <img src="<%= image.url %>" alt="" />
     <% }) %>
