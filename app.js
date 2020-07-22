@@ -81,7 +81,7 @@ app.use((req, res, next) => {
     next();
 });
 
-seedPosts();
+// seedPosts();
 
 // mount routes
 app.use("/", indexRouter);

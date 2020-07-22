@@ -22,7 +22,10 @@ module.exports = {
             }
         );
         posts.page = Number(posts.page);
-        res.render("posts/index", { posts });
+        res.render("posts/index", {
+            posts,
+            mapboxToken: process.env.MAPBOX_TOKEN,
+        });
     },
     // POST new
     postNew(rqe, res, next) {

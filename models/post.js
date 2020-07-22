@@ -8,13 +8,26 @@ const PostSchema = new Schema({
     price: String,
     description: String,
     location: String,
+    geometry: {
+        type: {
+            type: String,
+            enum: ["Point"],
+            required: true,
+        },
+        coordinates: {
+            type: [Number],
+            required: true,
+        },
+    },
+    properties: {
+        description: String,
+    },
     images: [
         {
             url: String,
             public_id: String,
         },
     ],
-    coordinates: Array,
     author: {
         type: Schema.Types.ObjectId,
         ref: "User",
