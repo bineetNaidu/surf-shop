@@ -15,30 +15,48 @@ module.exports = {
 
     // get register
     getRegister(req, res, next) {
-        res.render("register", { title: "Register" });
+        res.render("register", {
+            title: "Surf Shop | Register",
+            username: "",
+            email: "",
+        });
     },
 
     // postRegister method
     async postRegister(req, res, next) {
-        let newUser = new User({
-            username: req.body.username,
-            email: req.body.email,
-            image: req.body.image,
-        });
-
-        let user = await User.register(newUser, req.body.password);
-        req.login(user, (err) => {
-            if (err) {
-                return next(err);
+        try {
+            const user = await User.register(
+                new User(req.body),
+                req.body.password
+            );
+            req.login(user, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                req.session.success = `Welcome to Surf Shop, ${user.username}!`;
+                res.redirect("/");
+            });
+        } catch (err) {
+            const { username, email } = req.body;
+            let error = err.message;
+            if (
+                error.includes("duplicate") &&
+                error.includes("index : email_1 dup key")
+            ) {
+                error = "A user with given email is already registered";
             }
-            req.session.success = `Welcome to Surf Shop, ${user.username}!`;
-            res.redirect("/");
-        });
+            res.render("register", {
+                title: "Surf Shop | Register",
+                username,
+                email,
+                error,
+            });
+        }
     },
 
     // get login
     getLogin(req, res, next) {
-        res.render("login", { title: "Login" });
+        res.render("login", { title: "Surf Shop | Login" });
     },
 
     // postLogin method

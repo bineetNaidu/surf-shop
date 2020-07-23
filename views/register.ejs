@@ -2,7 +2,13 @@
 <form action="/register" method="POST">
     <div>
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" required />
+        <input
+            type="text"
+            name="username"
+            id="username"
+            required
+            value="<%= username %>"
+        />
     </div>
 
     <div>
@@ -12,7 +18,13 @@
 
     <div>
         <label for="email">Email</label>
-        <input type="email" required name="email" id="email" />
+        <input
+            type="email"
+            required
+            name="email"
+            id="email"
+            value="<%= email %>"
+        />
     </div>
 
     <div>
