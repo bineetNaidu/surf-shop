@@ -32,7 +32,7 @@ module.exports = {
         });
     },
     // POST new
-    postNew(rqe, res, next) {
+    postNew(req, res, next) {
         res.render("posts/new");
     },
     // create post

@@ -24,12 +24,14 @@
 
 <div id="map"></div>
 
+<% if(currentUser && post.author.equals(currentUser._id)) { %>
 <div><a href="/posts/<%= post.id %>/edit">Edit!</a></div>
 <div>
     <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
         <button>DELETE POST</button>
     </form>
 </div>
+<% } %>
 
 <h2>Create a Review</h2>
 <form action="/posts/<%= post.id %>/reviews" method="POST">

@@ -26,12 +26,11 @@ module.exports = {
 
     // authorization
     isAuthor: async (req, res, next) => {
-        const post = await Post.findById(rqe.params.id);
+        const post = await Post.findById(req.params.id);
         if (post.author.equals(req.user._id)) {
             res.locals.post = post;
             return next();
         }
-
         req.session.error = "Access denies";
         res.redirect("back");
     },

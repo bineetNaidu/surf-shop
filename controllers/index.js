@@ -56,6 +56,9 @@ module.exports = {
 
     // get login
     getLogin(req, res, next) {
+        if (req.isAuthenticated()) {
+            return res.redirect("/");
+        }
         res.render("login", { title: "Surf Shop | Login" });
     },
 

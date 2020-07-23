@@ -33,6 +33,7 @@ router.get("/:id", asyncErrorHandler(postShow));
 /* GET post edit /post/:id/edit */
 router.get(
     "/:id/edit",
+    isLoggedIn,
     asyncErrorHandler(isAuthor),
     asyncErrorHandler(postEdit)
 );
@@ -40,6 +41,7 @@ router.get(
 /* PUT post update /post/:id */
 router.put(
     "/:id",
+    isLoggedIn,
     asyncErrorHandler(isAuthor),
     upload.array("images", 4),
     asyncErrorHandler(postUpdate)
@@ -48,6 +50,7 @@ router.put(
 /* DELETE post destroy /post/:id */
 router.delete(
     "/:id",
+    isLoggedIn,
     asyncErrorHandler(isAuthor),
     asyncErrorHandler(postDestroy)
 );
