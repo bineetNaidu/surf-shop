@@ -13,6 +13,11 @@ module.exports = {
         });
     },
 
+    // get register
+    getRegister(req, res, next) {
+        res.render("register", { title: "Register" });
+    },
+
     // postRegister method
     async postRegister(req, res, next) {
         let newUser = new User({
@@ -21,9 +26,21 @@ module.exports = {
             image: req.body.image,
         });
 
-        await User.register(newUser, req.body.password);
-        res.redirect("/");
+        let user = await User.register(newUser, req.body.password);
+        req.login(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            req.session.success = `Welcome to Surf Shop, ${user.username}!`;
+            res.redirect("/");
+        });
     },
+
+    // get login
+    getLogin(req, res, next) {
+        res.render("login", { title: "Login" });
+    },
+
     // postLogin method
     async postLogin(req, res, next) {
         passport.authenticate("local", {
