@@ -11,16 +11,21 @@ const {
     postUpdate,
     postDestroy,
 } = require("../controllers/posts");
-const { asyncErrorHandler } = require("../middleware");
+const { asyncErrorHandler, isLoggedIn } = require("../middleware");
 
 /* GET post index /posts */
 router.get("/", asyncErrorHandler(postIndex));
 
 /* GET post new /posts/new */
-router.get("/new", postNew);
+router.get("/new", isLoggedIn, postNew);
 
 /* POST post create /posts */
-router.post("/", upload.array("images", 4), asyncErrorHandler(postCreate));
+router.post(
+    "/",
+    isLoggedIn,
+    upload.array("images", 4),
+    asyncErrorHandler(postCreate)
+);
 
 /* GET post show /post/:id */
 router.get("/:id", asyncErrorHandler(postShow));

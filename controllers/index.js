@@ -43,10 +43,20 @@ module.exports = {
 
     // postLogin method
     async postLogin(req, res, next) {
-        passport.authenticate("local", {
-            successRedirect: "/",
-            failureRedirect: "/login",
-        })(req, res, next);
+        const { username, password } = req.body;
+        const { user, error } = await User.authenticate()(username, password);
+        if (!user && error) {
+            next(error);
+        }
+        req.login(user, (err) => {
+            if (err) {
+                return next(err);
+            }
+            req.session.success = `Welcome Back, ${username}`;
+            const redirectUrl = req.session.redirectTo || "/";
+            delete req.session.redirectTo;
+            res.redirect(redirectUrl);
+        });
     },
     // getLogout method
     getLogout(req, res, next) {
