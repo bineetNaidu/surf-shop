@@ -1,5 +1,6 @@
 const Review = require("../models/review");
 const User = require("../models/user");
+const Post = require("../models/post");
 
 module.exports = {
     asyncErrorHandler: (fn) => (req, res, next) => {
@@ -21,5 +22,17 @@ module.exports = {
         req.session.error = "You need to be logged in to do that!";
         req.session.redirectTo = req.originalUrl;
         res.redirect("/login");
+    },
+
+    // authorization
+    isAuthor: async (req, res, next) => {
+        const post = await Post.findById(rqe.params.id);
+        if (post.author.equals(req.user._id)) {
+            res.locals.post = post;
+            return next();
+        }
+
+        req.session.error = "Access denies";
+        res.redirect("back");
     },
 };

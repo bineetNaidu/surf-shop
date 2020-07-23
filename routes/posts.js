@@ -11,7 +11,7 @@ const {
     postUpdate,
     postDestroy,
 } = require("../controllers/posts");
-const { asyncErrorHandler, isLoggedIn } = require("../middleware");
+const { asyncErrorHandler, isLoggedIn, isAuthor } = require("../middleware");
 
 /* GET post index /posts */
 router.get("/", asyncErrorHandler(postIndex));
@@ -31,12 +31,25 @@ router.post(
 router.get("/:id", asyncErrorHandler(postShow));
 
 /* GET post edit /post/:id/edit */
-router.get("/:id/edit", asyncErrorHandler(postEdit));
+router.get(
+    "/:id/edit",
+    asyncErrorHandler(isAuthor),
+    asyncErrorHandler(postEdit)
+);
 
 /* PUT post update /post/:id */
-router.put("/:id", upload.array("images", 4), asyncErrorHandler(postUpdate));
+router.put(
+    "/:id",
+    asyncErrorHandler(isAuthor),
+    upload.array("images", 4),
+    asyncErrorHandler(postUpdate)
+);
 
 /* DELETE post destroy /post/:id */
-router.delete("/:id", asyncErrorHandler(postDestroy));
+router.delete(
+    "/:id",
+    asyncErrorHandler(isAuthor),
+    asyncErrorHandler(postDestroy)
+);
 
 module.exports = router;
