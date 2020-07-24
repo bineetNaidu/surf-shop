@@ -1,0 +1,8 @@
+<% layout('layouts/boilerplate') -%>
+<h1><%= currentUser.username %>'s Profile</h1>
+<p>Recents Post:</p>
+<% posts.forEach((post)=>{ %>
+<div>
+    <a href="/posts/<%= post.id %>"><%= post.title %></a>
+</div>
+<% }) %>
