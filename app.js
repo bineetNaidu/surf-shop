@@ -5,7 +5,6 @@ const express = require("express");
 const engine = require("ejs-mate");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
 const logger = require("morgan");
 const passport = require("passport");
 const passportLocal = require("passport-local");
@@ -19,6 +18,7 @@ const seedPosts = require("./seeds");
 mongoose
     .connect("mongodb://localhost:27017/surf-shop", {
         useNewUrlParser: true,
+        useCreateIndex: true,
         useUnifiedTopology: true,
     })
     .then(() => console.log("Connected to DB"))
@@ -39,7 +39,7 @@ app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(methodOverride("_method"));

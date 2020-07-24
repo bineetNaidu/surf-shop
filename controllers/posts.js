@@ -78,7 +78,7 @@ module.exports = {
         res.render("posts/show", { post, floorRating, mapboxToken });
     },
     // POST edit
-    async postEdit(req, res, next) {
+    postEdit(req, res, next) {
         res.render("posts/edit");
     },
     // updating the post
@@ -138,7 +138,7 @@ module.exports = {
         )}...</p>`;
 
         // save the updated post into the db
-        post.save();
+        await post.save();
         // redirect to show page
         res.redirect("/posts/" + post.id);
     },
